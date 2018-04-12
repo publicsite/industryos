@@ -1,0 +1,38 @@
+--- hooks/customise.sh.old	2018-04-12 19:03:26.045243270 +0100
++++ hooks/customise.sh	2018-04-11 00:26:53.059590000 +0100
+@@ -91,7 +91,7 @@
+ EOF
+ 
+ cat > ${rootdir}/etc/apt/sources.list.d/updates.list <<EOF
+-deb http://ftp.debian.org/debian stretch-updates main contrib non-free
++deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free
+ deb http://security.debian.org/debian-security stretch/updates main
+ EOF
+ 
+@@ -104,15 +104,23 @@
+ #deb-src http://buildbot.linuxcnc.org/ stretch 2.7-rtpreempt
+ EOF
+ 
++cat > ${rootdir}/etc/apt/sources.list.d/biolinux.list <<EOF
++deb http://nebc.nox.ac.uk/bio-linux/ unstable bio-linux
++EOF
++
++# Temporary fix for #843983 ... note, we move this above the apt installs as some packages (eg. exim4) might need permissions to install
++chroot ${rootdir} chmod 755 /
++
++chroot ${rootdir} apt-get --allow-unauthenticated update
++chroot ${rootdir} apt-get --allow-unauthenticated -y install bio-linux-keyring
++
+ chroot ${rootdir} apt-key list
+-chroot ${rootdir} apt update
+ chroot ${rootdir} apt -y dist-upgrade
+ 
+ chroot ${rootdir} apt -y install initramfs-tools live-boot live-config ${LWR_TASK_PACKAGES} task-laptop task-english libnss-myhostname
++
+ chroot ${rootdir} apt -y install --no-install-recommends ${LWR_EXTRA_PACKAGES} ${LWR_FIRMWARE_PACKAGES}
+ 
+-# Temporary fix for #843983
+-chroot ${rootdir} chmod 755 /
+ 
+ chroot ${rootdir} mkdir -p /etc/skel/.config/autostart
+ if [ -e ${rootdir}/etc/xdg/autostart/light-locker.desktop ]; then

@@ -1,0 +1,28 @@
+--- live-wrapper/lwr/utils.py.old	2018-04-12 19:03:27.661294725 +0100
++++ live-wrapper/lwr/utils.py	2018-04-11 01:59:36.634481000 +0100
+@@ -12,6 +12,8 @@
+ import urlparse
+ import requests
+ import cliapp
++import os
++import shutil
+ 
+ KERNEL = 'vmlinuz'
+ RAMDISK = 'initrd.gz'
+@@ -59,3 +61,16 @@
+     check_url(kernel)
+     check_url(ramdisk)
+     return (base_url, kernel, ramdisk, cd_info)
++
++def copytree(source, target):
++    if not os.path.exists(target):
++        os.makedirs(target)
++        shutil.copystat(source, target)
++    entries = os.listdir(source)
++    for entry in entries:
++        src = os.path.join(source, entry)
++        tgt = os.path.join(target, entry)
++        if os.path.isdir(src):
++            copytree(src, tgt)
++        else:
++            shutil.copy2(src, tgt)

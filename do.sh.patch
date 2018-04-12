@@ -1,0 +1,67 @@
+--- do.sh.old	2018-04-12 19:03:26.041243143 +0100
++++ do.sh	2018-04-12 01:37:53.245555000 +0100
+@@ -19,18 +19,52 @@
+         i?86) KARCH=686-pae ;;
+         *) KARCH="$ARCH" ;;
+     esac
+-    TARGET="$LOCATION/linuxcnc-stretch-uspace-$ARCH.iso"
++    TARGET="$LOCATION/industryos-stretch-uspace-$ARCH.iso"
+     lwr -o "$TARGET" \
+         --architecture=$ARCH \
+         --customise="$LOCATION/hooks/customise.sh" \
+         --kernel=linux-image-rt-$KARCH \
+         --preseed=preseed.cfg \
+-        -t "live-task-base task-xfce-desktop task-print-server" \
+-        -e "linux-headers-rt-$KARCH linux-perf \
++        -t "live-task-base task-lxde-desktop task-print-server \
+             linuxcnc-uspace linuxcnc-uspace-dev linuxcnc-doc-en \
+             f-engrave hostmot2-firmware-all mesaflash truetype-tracer \
+-            bash-completion openssh-server build-essential \
+-            nopaste mesa-utils gparted vim-gtk3 galculator" \
++            bash-completion build-essential \
++            nopaste mesa-utils gparted \
++            debichem-analytical-biochemistry \
++            debichem-cheminformatics \
++            debichem-crystallography \
++            debichem-development \
++            debichem-input-generation-output-processing \
++            debichem-modelling \
++            debichem-molecular-abinitio \
++            debichem-molecular-dynamics \
++            debichem-periodic-abinitio \
++            debichem-semiempirical \
++            debichem-tasks \
++            debichem-view-edit-2d \
++            debichem-visualisation \
++            education-electronics \
++            education-geography \
++            education-mathematics \
++            gis-gps \
++            gis-remotesensing \
++            gis-statistics \
++            gis-workstation \
++            gis-osm \
++            med-bio \
++            med-config \
++            med-data \
++            med-dental \
++            med-epi \
++            med-imaging \
++            med-laboratory \
++            med-oncology \
++            med-physics \
++            med-tasks \
++            med-tools \
++            med-typesetting \
++            science-all" \
++        -e "linux-headers-rt-$KARCH linux-perf" \
+         -f "firmware-linux-free \
+             hdmi2usb-fx2-firmware nxt-firmware \
+             bladerf-firmware-fx3 firmware-b43-installer \
+@@ -44,5 +78,5 @@
+             firmware-myricom firmware-netxen firmware-qlogic firmware-realtek \
+             firmware-ti-connectivity \
+             firmware-zd1211 intel-microcode" \
+-        --description="Unofficial LinuxCNC 'Stretch' $ARCH Live/Install"
++        --description="Industry OS 'Stretch' $ARCH Live/Install"
+ done
