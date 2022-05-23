@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=k3d
+Exec=/usr/bin/k3d
+Type=Application
+
+Name[en_GB.UTF-8]=k3d

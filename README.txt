@@ -10,12 +10,13 @@ It includes:
 
 	* LinuxCNC packages for numerical control of CNC machines (and ...)
 
-	* Bio-Linux packages for biology-related tasks.
+	* Toxic hazard estimation
 
-It uses LXDE as it's desktop environment so should be rather speedy and easy to use.
+It uses XFCE as it's desktop environment so should be rather speedy and easy to use.
 
 To build an live iso, from a debian-based machine, clone the repository and run
-	./build.sh
-	
-	
+	./stage1.sh
+
+Code may need some minor tweaking to work.
+
 To Donate please visit https://www.paypal.com/donate/?hosted_button_id=SZABYRV48SAXW

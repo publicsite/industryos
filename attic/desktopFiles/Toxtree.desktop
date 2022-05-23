@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Toxtree
+Exec=/usr/bin/toxtree
+Type=Application
+
+Name[en_GB.UTF-8]=Toxtree
