@@ -21,6 +21,81 @@ echo "Arg1 device to install onto eg. /dev/sdb"
 exit
 fi
 
+#SECTION: TIMEZONE ...
+
+printRegions(){
+	find "/usr/share/zoneinfo" -maxdepth 1 -mindepth 1 -type d | while read line; do
+		line="$(basename "$line")"
+		if [ "${line}" != "posix" ] && [ "${line}" != "right" ]; then
+			echo "${line}"
+		fi
+	done
+}
+
+check_for_region(){
+		printRegions | while read line; do
+			if [ "$1" = "${line}" ]; then
+				echo "found"
+				break
+			fi
+		done
+}
+
+
+printZones(){
+	find "/usr/share/zoneinfo/${1}" -maxdepth 1 -mindepth 1 -type f | while read line; do
+		line="$(basename "$line")"
+		if [ "${line}" != "posix" ] && [ "${line}" != "right" ]; then
+			echo "${line}"
+		fi
+	done
+}
+
+check_for_zone(){
+		printZones "${2}" | while read line; do
+			if [ "$1" = "${line}" ]; then
+				echo "found"
+				break
+			fi
+		done
+}
+set_timezone(){
+while true; do
+		echo "Type \"L\" to see regions. Or type a region or, otherwise type \"C\" for cancel.\n"
+		read option12
+	if [ "${option12}" = "L" ] || [ "${option12}" = "l" ]; then
+		printRegions "${1}" | less
+	elif [ "${option12}" = "C" ] || [ "${option12}" = "c" ]; then
+		echo ""
+		echo "***Not setting timezone.***"
+		echo ""
+		break
+	else
+		if [ "$(check_for_region "${option12}")" = "found" ]; then
+				while true; do
+				echo "Type \"L\" to see zones. Or type a zone or, otherwise type \"C\" for cancel.\n"
+					read option13
+					if [ "${option13}" = "L" ] || [ "${option13}" = "l" ]; then
+						printZones "${option12}" | less
+					elif [ "${option13}" = "C" ] || [ "${option13}" = "c" ]; then
+						echo ""
+						echo "***Not setting timezone.***"
+						echo ""
+						break
+					else
+						if [ "$(check_for_zone "${option13}" "${option12}")" = "found" ]; then
+							echo "Setting timezone to ${option12}/${option13} ..."
+							ln -sf "/usr/share/zoneinfo/${option12}/${option13}" "${1}/etc/localtime"
+							break
+						fi
+					fi
+				done
+			break
+		fi
+	fi
+done
+}
+
 #SECTION: LOCALE ...
 
 printListOfLocales(){
@@ -436,6 +511,7 @@ printf "Type the alphanumeric hostname you wish to use for this machine and pres
 done
 
 set_locale "${dest}"
+set_timezone "${dest}"
 choose_layout "${dest}"
 
 howManyGLeft="$(df -h "$dest" | head -n 2 | tail -n 1 | tr -s " " | cut -d " " -f 4)"

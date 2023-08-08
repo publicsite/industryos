@@ -56,19 +56,22 @@ xfce4-pulseaudio-plugin \
 xfce4-terminal \
 xfce4-whiskermenu-plugin \
 thunar \
+thunar-archive-plugin \
 xdm \
 blueman \
 qalculate-gtk \
 mousepad \
 pavucontrol \
 libreoffice \
-xarchiver \
+file-roller \
 evince \
 htop \
 firmware-linux-free
 
 apt-get -m -y install --no-install-recommends \
 "$2" \
+console-setup-mini \
+pciutils \
 bc \
 breeze-icon-theme \
 extlinux \
@@ -103,7 +106,6 @@ fdisk \
 less \
 xfce4-session \
 connman \
-connman-ui \
 connman-gtk \
 xfce4-power-manager \
 xfce4-power-manager-plugins \
@@ -139,7 +141,8 @@ firmware-siano \
 firmware-ti-connectivity \
 firmware-zd1211 \
 intel-microcode \
-midisport-firmware
+midisport-firmware \
+tzdata
 
 #Additional programs for industry os
 apt-get -m -y install \
