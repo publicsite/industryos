@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 thefdisk="/sbin/fdisk"
 thechroot="/usr/sbin/chroot"
 themkfsext4="/sbin/mkfs.ext4"
@@ -567,3 +570,5 @@ echo w #Write
 cd
 
 rm -rf /tmp/installToHDD
+
+umask "${OLD_UMASK}"
