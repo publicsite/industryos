@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 #myBuild options
 
 #environment variables
@@ -49,3 +52,5 @@ export PREFIX='/usr' #the location to install to
 #"${myBuildsDir}/lasergrbl/lasergrbl.myBuild" get
 #"${myBuildsDir}/k3d/k3d.myBuild" get
 #"${myBuildsDir}/universal-g-code-sender/universal-g-code-sender.myBuild" get stage2
+
+umask "${OLD_UMASK}"
