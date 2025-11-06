@@ -1,4 +1,8 @@
 #!/bin/sh
+
+OLD_UMASK="$(umask)"
+umask 0022
+
 #myBuild options
 
 #environment variables
@@ -113,3 +117,5 @@ umount /dev/pts
 #"${myBuildsDir}/k3d/k3d.myBuild" extract
 #"${myBuildsDir}/k3d/k3d.myBuild" build
 #"${myBuildsDir}/k3d/k3d.myBuild" install
+
+umask "${OLD_UMASK}"
