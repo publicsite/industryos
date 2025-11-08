@@ -295,6 +295,9 @@ echo '' >> /home/user/.bashrc
 echo 'export TCLLIBPATH="$TCLLIBPATH:$(realpath /usr/*-linux-gnu/lib/tcltk/linuxcnc)"' >> /home/user/.bashrc
 echo 'LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(realpath /usr/*-linux-gnu/lib)"' >> /home/user/.bashrc
 
+sudo chmod 750 /etc/sudoers.d
+sudo chmod 0440 /etc/sudoers
+
 apt-get clean
 
 ##cd /workdir
