@@ -58,9 +58,10 @@ xfce4-panel \
 xfce4-pulseaudio-plugin \
 xfce4-terminal \
 xfce4-whiskermenu-plugin \
+xfce-polkit \
 thunar \
 thunar-archive-plugin \
-xdm \
+lightdm \
 blueman \
 qalculate-gtk \
 mousepad \
@@ -110,8 +111,7 @@ less \
 xfce4-session \
 connman \
 connman-gtk \
-xfce4-power-manager \
-xfce4-power-manager-plugins \
+xfce4-power-manager xfce4-power-manager-data xfce4-power-manager-plugins \
 dns323-firmware-tools \
 firmware-linux-free \
 grub-firmware-qemu \
