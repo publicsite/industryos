@@ -26,13 +26,19 @@ cd $(dirname $(realpath $0))
 
 thepwd="${PWD}"
 
-ISONAME="devuan_chimaera_4.0.0_i386_minimal-live.iso"
-wget "http://mirror.alpix.eu/devuan/devuan_chimaera/minimal-live/${ISONAME}"
-mkdir "${thepwd}/mountpoint"
-sudo mount -o loop "${ISONAME}" "${thepwd}/mountpoint"
-cp -a "${thepwd}/mountpoint/live/filesystem.squashfs" .
-sudo umount "${thepwd}/mountpoint"
-sudo unsquashfs -f -no-xattrs -d "${thepwd}/mountpoint" filesystem.squashfs
+#ISONAME="devuan_chimaera_4.0.0_i386_minimal-live.iso"
+#wget "http://mirror.alpix.eu/devuan/devuan_chimaera/minimal-live/${ISONAME}"
+#mkdir "${thepwd}/mountpoint"
+#sudo mount -o loop "${ISONAME}" "${thepwd}/mountpoint"
+#cp -a "${thepwd}/mountpoint/live/filesystem.squashfs" .
+#sudo umount "${thepwd}/mountpoint"
+#sudo unsquashfs -f -no-xattrs -d "${thepwd}/mountpoint" filesystem.squashfs
+
+wget "https://jenkins.linuxcontainers.org/job/image-debian/architecture=amd64,release=trixie,variant=default/4070/artifact/rootfs.tar.xz"
+sudo mkdir "${thepwd}/mountpoint"
+cd mountpoint
+sudo tar -xf ../rootfs.tar.xz
+cd ..
 
 #create /etc/resolv.conf for the outer rootfs
 cat /etc/resolv.conf | sudo tee "${thepwd}/mountpoint/etc/resolv.conf"
@@ -113,6 +119,7 @@ cat /etc/resolv.conf | sudo tee "${thepwd}/mountpoint/workdir/rootfs/etc/resolv.
 ##sudo chmod +x "${thepwd}/mountpoint/workdir/rootfs/workdir/installEquiptmentHost.sh"
 
 #run stage three in the inner rootfs
+sudo mkdir "${thepwd}/mountpoint/workdir/rootfs/workdir/"
 sudo cp "${thepwd}/stage3.sh" "${thepwd}/mountpoint/workdir/rootfs/workdir/"
 sudo chmod +x "${thepwd}/mountpoint/workdir/rootfs/workdir/stage3.sh"
 sudo chroot "${thepwd}/mountpoint/workdir/rootfs" /workdir/stage3.sh "${THEARCH}" "$2"
