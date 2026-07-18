@@ -52,7 +52,7 @@ sudo printf "deb-src %s testing main contrib non-free\n" "${THEMIRROR}" | sudo t
 sudo mkdir "${thepwd}/mountpoint/workdir"
 sudo cp -a stage2.sh "${thepwd}/mountpoint/workdir/"
 chmod +x "${thepwd}/mountpoint/workdir/stage2.sh"
-sudo chroot "${thepwd}/mountpoint" /workdir/stage2.sh "${THEARCH}" "http://pkgmaster.devuan.org/merged"
+sudo chroot "${thepwd}/mountpoint" /workdir/stage2.sh "${THEARCH}" "http://ftp.debian.org/debian/"
 
 #copy build scripts to the outer rootfs
 sudo cp -a "${thepwd}/myBuildsBuild" "${thepwd}/mountpoint/workdir"
