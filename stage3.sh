@@ -42,11 +42,11 @@ apt-get -y autoremove  exim4-config exim4-base exim4-daemon-light exim4-config-2
 apt-get -y update && apt-get -y upgrade
 
 apt-get -m -y install task-laptop \
+systemd \
+systemd-resolvd \
+default-logind \
 task-english \
 alsa-utils \
-sysvinit-core \
-sysv-rc \
-live-config-sysvinit \
 xdg-utils \
 xorg \
 xserver-xorg-input-all \
@@ -61,7 +61,7 @@ xfce4-whiskermenu-plugin \
 xfce-polkit \
 thunar \
 thunar-archive-plugin \
-lightdm \
+xdm \
 blueman \
 qalculate-gtk \
 mousepad \
@@ -136,7 +136,6 @@ firmware-misc-nonfree \
 firmware-myricom \
 firmware-netronome \
 firmware-netxen \
-firmware-qcom-media \
 firmware-qlogic \
 firmware-realtek \
 firmware-samsung \
